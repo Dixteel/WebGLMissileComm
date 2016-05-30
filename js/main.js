@@ -164,8 +164,10 @@ function onWindowResize() {
 function animate() {
 	requestAnimationFrame( animate );
 	
-	indicator.position.x = mouse.x; 
-	indicator.position.y = mouse.y;
+	if (indicator !== undefined) {
+		indicator.position.x = mouse.x; 
+		indicator.position.y = mouse.y;
+	}
 	
 	render();
 
