@@ -1,9 +1,12 @@
 <template>
     <section>
-      <h2>Chat Test</h2> 
+      <h2>Chat Test 2</h2>
+      <input type="text" value.bind="msg" placeholder="message..."/>
+      <button click.trigger="test()"> Send</button>
+
       <div repeat.for="msg of messages">
       ${msg}
       </div>
+      <div ref="canvasDiv"></div>
     </section>
 </template>
-
