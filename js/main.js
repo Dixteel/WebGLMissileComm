@@ -13,18 +13,8 @@ var mouse = {
 	y: 0
 };
 
-var g_stage;
-var g_clock = new THREE.Clock();
-
 init();
 animate();
-
-function begin() {
-	indicator = ASSET.indicator.sprite.clone();
-	sceneOrtho.add( indicator );
-
-	g_stage.init();
-}
 
 function init() {
 
@@ -47,16 +37,11 @@ function init() {
 	var amount = 200;
 	var radius = 500;
 
-	//var textureLoader = new THREE.TextureLoader();
+	var textureLoader = new THREE.TextureLoader();
 
-	g_stage = new Stage(sceneOrtho);
-	
-	LoadAsset(begin);
-	
-	/*
 	var mapA = textureLoader.load( "res/sprite0.png", createHUDSprites );
-	//var mapB = textureLoader.load( "res/sprite1.png" );
-	//mapC = textureLoader.load( "res/sprite2.png" );
+	var mapB = textureLoader.load( "res/sprite1.png" );
+	mapC = textureLoader.load( "res/sprite2.png" );
 	
 	textureLoader.load( "res/Indicator.png", function (texture) {
 		var material = new THREE.SpriteMaterial( { map: texture } );
@@ -68,8 +53,6 @@ function init() {
 		indicator.scale.set( width, height, 1 );
 		sceneOrtho.add( indicator );
 	});
-	
-	*/
 	
 	// renderer
 
@@ -104,16 +87,9 @@ function onDocumentMouseClick( event ) {
 	//mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
 	//mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
 	console.log("---->click: " + mouse.x + ", " + mouse.y);
-	var missile = g_stage.addEntity(ASSET.missile);
-	missile.setPos({
-		x: mouse.x,
-		y: mouse.y
-	});
 }
-
-/*		
+		
 function createHUDSprites ( texture ) {
-	
 
 	var material = new THREE.SpriteMaterial( { map: texture } );
 
@@ -140,11 +116,12 @@ function createHUDSprites ( texture ) {
 	spriteC.scale.set( width, height, 1 );
 	sceneOrtho.add( spriteC );
 
+
+
 	
 	updateHUDSprites();
 
 }
-*/
 
 function updateHUDSprites () {
 
@@ -192,19 +169,12 @@ function animate() {
 		indicator.position.y = mouse.y;
 	}
 	
-	var delta = g_clock.getDelta();
-	
-	update(delta);
 	render();
 
 }
 
-function update() {
-	g_stage.update();
-}
-
 function render() {
-	//var time = Date.now() / 1000;
+	var time = Date.now() / 1000;
 	renderer.clear();
 	renderer.render( scene, camera );
 	renderer.clearDepth();
