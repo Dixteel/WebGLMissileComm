@@ -1,19 +1,31 @@
+import {inject} from 'aurelia-framework';
 import io from 'socket.io-client';
 import d3 from 'd3';
+import {Polar} from 'polar';
 
+@inject(Polar)
 export class Chat {
   messages = [];
   message = '';
+  socket;
 
-  constructor() {
-    var socket = io('localhost:3000');
-    socket.emit('chat message', 'hello');
+  constructor(polar) {
+    this.socket = io('localhost:3000');
+    this.socket.emit('chat message', 'hello');
 
-    socket.on('chat message', (msg) => {
+    this.socket.on('chat message', (msg) => {
       console.log('hello...');
       this.messages.push(msg);
     });
+    /*
+    socket.on('update', (msg) => {
+      console.log(msg);
+    });
+    */
 
+    console.log('!!!', polar);
+
+    this.polar = polar;
   }
 
   attached() {
@@ -36,22 +48,35 @@ export class Chat {
       fill: 'none', stroke: '#888'
     });
 
-    g.append('circle').attr({
-      cx: 150 + 120*Math.sin(90*Math.PI/180.0), cy: 150 + 120*Math.cos(90*Math.PI/180.0), r: 10
-    }).style({ fill: '#F00', stroke: 'none' });
 
-    g.append('circle').attr({
-      cx: 150 + 120*Math.sin(140*Math.PI/180.0), cy: 150 + 120*Math.cos(140*Math.PI/180.0), r: 10
-    }).style({ fill: '#F00', stroke: 'none' });
+    /*
+    for (var i=0; i < 5; i++) {
+      var pos = {};
+      pos = this.polar.getXY(20*i, 120);
+      g.append('circle').attr({
+        cx: 150 + pos.x, cy: 150 + pos.y, r:   5 + 2*i
+      }).style({ fill: '#F00', stroke: 'none' });
+    }
+    */
 
-    g.append('circle').attr({
-      cx: 150 + 80*Math.sin(240*Math.PI/180.0), cy: 150 + 80*Math.cos(240*Math.PI/180.0), r: 10
-    }).style({ fill: '#2FF', stroke: 'none' });
+    /*
+    for (var i=0; i < 15; i++) {
+      var pos = {};
+      pos = this.polar.getXY(-30*i, 10* i);
+      g.append('circle').attr({
+        cx: 150 + pos.x, cy: 150 + pos.y, r: 4 + 0.5*i
+      }).style({ fill: '#F44', stroke: 'none' });
+    }
+    */
+
+
 
 
   }
 
   test() {
-    console.log('test called...');
+    console.log('test called...', this.msg);
+    this.socket.emit('chat message', this.msg);
+    this.msg = '';
   }
 }
