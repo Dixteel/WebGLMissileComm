@@ -6,11 +6,17 @@ import {Entity} from './entity';
 import {Stage} from './stage';
 import {AssetLoader} from './asset';
 
+import {UserService} from './services/user-service';
+
+
+@inject(UserService)
 export class Game2 {
 
-  constructor() {
+  constructor(userService) {
     this.width = 500;
     this.height = 500;
+    this.g_clock = new THREE.Clock();
+    this.userService = userService;
   }
 
   attached() {
@@ -39,10 +45,14 @@ export class Game2 {
   	this.renderer.autoClear = false; // To allow render overlay on top of sprited sphere
 
 
+    this.stage = new Stage(this.scene);
+
+
     this.sceneDiv.appendChild(this.renderer.domElement);
   }
 
   animate = ()=> {
+    // console.log(this.stage);
   	requestAnimationFrame( this.animate );
 
     /*
