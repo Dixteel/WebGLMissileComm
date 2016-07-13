@@ -1,4 +1,3 @@
-import {singleton} from 'aurelia-framework';
 
 export class UserService {
   constructor() {
