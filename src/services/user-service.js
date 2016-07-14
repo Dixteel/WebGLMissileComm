@@ -1,18 +1,25 @@
+import {inject} from 'aurelia-framework';
+import {Conn} from './conn';
 
+@inject(Conn)
 export class UserService {
-  constructor() {
-    this.username = 'default';
-    this.userId = null;
-    this.score = 0;
+
+  players = [];
+  player = {};
+
+
+  constructor(conn) {
+    this.conn = conn;
+
+    this.conn.getSocket().on('player', function(player) {
+      console.log('player', player);
+      this.player = player;
+    });
+
+    this.conn.getSocket().on('players', function(players) {
+      console.log('players', players);
+      this.players = players;
+    });
   }
 
-  get() {
-    return this.username;
-  }
-
-  init(profile) {
-    this.username = profile.username;
-    this.userId = profile.userId;
-    this.score = profile.score;
-  }
 }

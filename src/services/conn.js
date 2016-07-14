@@ -8,10 +8,6 @@ export class Conn {
 
   constructor() {
     this.socket = io('localhost:3000');
-
-    this.socket.on('login', function(msg) {
-      console.log('login >', msg);
-    });
   }
 
   getSocket() { return this.socket; }
@@ -21,9 +17,6 @@ export class Conn {
    * Mostly an internal helper method
    */
   _send(type, payload) {
-    console.log('sending', type, payload);
-    this.socket.emit(type, {
-      a: 10, b: 20, c: "hello world"
-    });
+    this.socket.emit(type, payload);
   }
 }

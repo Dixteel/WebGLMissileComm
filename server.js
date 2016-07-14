@@ -4,6 +4,8 @@ var io = require('socket.io')(http);
 var static = require('node-static');
 
 var file = new(static.Server)('./');
+var players = [];
+var playerIdCounter = 0;
 
 // Init
 // 0) Player registration
@@ -20,6 +22,10 @@ app.get('/', function(req, res){
   res.sendFile(__dirname + '/index.html');
 });
 
+io.on('disconnection', function(socket) {
+  console.log('disconnected...', socket.id);
+});
+
 io.on('connection', function(socket){
   console.log('connection detected...');
   io.emit('chat message', 'new person joined');
@@ -29,9 +35,22 @@ io.on('connection', function(socket){
   });
 
 
-  socket.on('login', function(msg) {
-    console.log('login > ', msg);
-    socket.emit('login', 'success');
+  /**
+   * Login.
+   *
+   * @param {string} name - username
+   */
+  socket.on('login', function(name) {
+    console.log('socket', socket.id);
+    var player = {
+      name: name,
+      id: ++playerIdCounter,
+      socketId: socket.id
+    }
+    players.push(player);
+
+    socket.emit('player', player);
+    io.emit('players', players);
   });
 
 });
