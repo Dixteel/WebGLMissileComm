@@ -11,15 +11,16 @@ export class UserService {
   constructor(conn) {
     this.conn = conn;
 
-    this.conn.getSocket().on('player', function(player) {
-      console.log('player', player);
+    this.conn.getSocket().on('player', (player)=> {
+      //console.log('player', player);
       this.player = player;
     });
 
-    this.conn.getSocket().on('players', function(players) {
-      console.log('players', players);
+    this.conn.getSocket().on('players', (players)=> {
+      //console.log('players', players);
       this.players = players;
     });
   }
+
 
 }
