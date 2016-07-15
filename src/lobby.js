@@ -2,17 +2,17 @@ import {inject} from 'aurelia-framework';
 import {Conn} from './services/conn';
 import {UserService} from './services/user-service';
 
+/**
+* Simple chat lobby
+*/
 @inject(Conn, UserService)
-export class Login {
+export class Lobby {
+
   constructor(conn, userService) {
-    console.log('login init...');
-    this.username = '';
-    this.conn = conn;
     this.userService = userService;
+    this.conn = conn;
   }
 
-  login() {
-    this.conn._send('login', this.username);
+  sendMessage(msg) {
   }
-
 }

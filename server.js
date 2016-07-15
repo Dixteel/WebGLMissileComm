@@ -34,6 +34,19 @@ io.on('connection', function(socket){
     io.emit('chat message', msg);
   });
 
+  socket.on('disconnect', function() {
+    console.log('disconnected');
+
+    var index = players
+      .map(function(d) { return d.socketId; })
+      .indexOf(socket.id);
+
+    if (index >= 0) {
+      players = players.splice(index, 1);
+    }
+    io.emit('players', players);
+  });
+
 
   /**
    * Login.
