@@ -14,16 +14,16 @@
     </div>
     <div style="display:flex; width=40rem; padding-right:1rem; padding-left:1rem">
       <div style="width:40rem">
-        <div style="max-height:20rem; height: 20rem; border:1px solid #CCC; border-radius:1rem; padding:0.5rem">
+        <div class="lobby-log">
           <div repeat.for="msg of messageList">
             ${msg.player} : ${msg.msg}
           </div>
         </div>
-        <input type="text" style="width:25rem" value.bind="msg"/>
+        <input type="text" class="lobby-msgbox" value.bind="msg"/>
         <span class="button" click.trigger="sendMessage()">Send</span>
       </div>
       <div style="width:2rem"></div>
-      <div style="max-height: 20rem; overflow-y: scroll; width:20rem">
+      <div class="lobby-players-list">
         <div repeat.for="player of userService.players">${player.name}</div>
       </div>
     </div>

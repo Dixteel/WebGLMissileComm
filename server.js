@@ -43,7 +43,9 @@ io.on('connection', function(socket){
       .indexOf(socket.id);
 
     if (index >= 0) {
-      players = players.splice(index, 1);
+      console.log('players length', players.length);
+      players.splice(index, 1);
+      console.log('players length', players.length);
     }
     io.emit('players', players);
   });
@@ -55,7 +57,6 @@ io.on('connection', function(socket){
    * @param {string} name - username
    */
   socket.on('login', function(name) {
-    console.log('socket', socket.id);
     var player = {
       name: name,
       id: ++playerIdCounter,

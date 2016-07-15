@@ -27,12 +27,34 @@ section {
   padding: 0.4rem;
   margin-left: 0.25rem;
   margin-right: 0.25rem;
+  cursor: pointer;
 }
 
 .button:hover {
   background: #BCE;
 }
 
+.lobby-log {
+  max-height:20rem;
+  height: 20rem;
+  border:1px solid #CCC;
+  border-radius:1rem;
+  padding:0.5rem;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
 
-.lobby {
+.lobby-msgbox {
+  width: 30rem;
+  border-radius: 0.5rem;
+  border: 1px solid #CCC;
+}
+
+.lobby-players-list {
+  max-height: 20rem;
+  overflow-y: scroll;
+  width:20rem;
+  border:1px solid #CCC;
+  border-radius: 0.5rem;
+  padding: 0.5rem;
 }
