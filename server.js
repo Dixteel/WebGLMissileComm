@@ -30,8 +30,9 @@ io.on('connection', function(socket){
   console.log('connection detected...');
   io.emit('chat message', 'new person joined');
 
-  socket.on('chat message', function(msg){
-    io.emit('chat message', msg);
+  socket.on('chat', function(msg){
+    console.log('chat', msg);
+    io.emit('chat', msg);
   });
 
   socket.on('disconnect', function() {
