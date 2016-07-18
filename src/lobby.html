@@ -1,6 +1,5 @@
 <template>
   <section hidden.bind="!userService.player.name" class="lobby">
-
     <div style="display:flex; background:#336699; color:#EEE; padding:1rem">
       <span>Lobby</span>
       <span style="flex:1; text-align:right">
@@ -9,9 +8,13 @@
         <span class="button">Leave</span>
       </span>
     </div>
+
     <div style="padding: 1rem">
-      <span class="button">Start the game !!</span>
+      <span class="button" click.trigger="start()">
+        ${ready === 0? 'Start' : 'Waiting for others'}
+      </span>
     </div>
+
     <div style="display:flex; width=40rem; padding-right:1rem; padding-left:1rem">
       <div style="width:40rem">
         <div class="lobby-log">
@@ -24,10 +27,8 @@
       </div>
       <div style="width:2rem"></div>
       <div class="lobby-players-list">
-        <div repeat.for="player of userService.players">${player.name}</div>
+        <div repeat.for="player of userService.players">${player.name} -- ${player.ready === 0? 'waiting':'ready'}</div>
       </div>
     </div>
-    <br>
-
   </section>
 </template>

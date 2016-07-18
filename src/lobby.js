@@ -8,19 +8,28 @@ import {UserService} from './services/user-service';
 @inject(Conn, UserService)
 export class Lobby {
 
-  messageList = [];
-  msg = '';
 
   constructor(conn, userService) {
     this.userService = userService;
     this.conn = conn;
     this.messageList = [];
     this.msg = '';
+    this.ready = 0;
+  }
+
+  start() {
+    if (this.ready === 1) return;
+    this.ready = 1;
+    this.conn._send('ready', this.userService.player.id);
   }
 
   attached() {
     this.conn.getSocket().on('chat', (msg)=> {
       this.messageList.push(msg);
+      if (this.messageList.length > 15) {
+        this.messageList.shift();
+      }
+      // TODO: Auto scroll to bottom
     });
   }
 

@@ -35,6 +35,16 @@ io.on('connection', function(socket){
     io.emit('chat', msg);
   });
 
+  socket.on('ready', function(id) {
+    players.find(function(player) { return player.id === id; }).ready = 1;
+    io.emit('players', players);
+
+    var numReady = players.filter(player => { return player.ready === 1;}).length;
+    if (numReady >= players.length) {
+      console.log('all players ready...starting game');
+    }
+  });
+
   socket.on('disconnect', function() {
     console.log('disconnected');
 
@@ -43,9 +53,7 @@ io.on('connection', function(socket){
       .indexOf(socket.id);
 
     if (index >= 0) {
-      console.log('players length', players.length);
       players.splice(index, 1);
-      console.log('players length', players.length);
     }
     io.emit('players', players);
   });
@@ -60,12 +68,14 @@ io.on('connection', function(socket){
     var player = {
       name: name,
       id: ++playerIdCounter,
+      ready: 0,
       socketId: socket.id
     }
     players.push(player);
 
     socket.emit('player', player);
     io.emit('players', players);
+    io.emit('chat', { player: '***', msg: name + ' has joined the lobby' });
   });
 
 });
