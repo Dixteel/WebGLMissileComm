@@ -4,10 +4,18 @@ import io from 'socket.io-client';
  * Holds the socket connection
  */
 export class Conn {
-  socket = null;
 
   constructor() {
     this.socket = io('localhost:3000');
+    this.state = 'login';
+
+    // Keeps track of global states
+    this.socket.on('player', ()=> {
+      this.state = 'lobby';
+    });
+    this.socket.on('start-game', ()=> {
+      this.state = 'game';
+    });
   }
 
   getSocket() { return this.socket; }

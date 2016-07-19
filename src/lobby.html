@@ -1,5 +1,5 @@
 <template>
-  <section hidden.bind="!userService.player.name" class="lobby">
+  <section show.bind="conn.state === 'lobby'" class="lobby" ref="lobbyElement">
     <div style="display:flex; background:#336699; color:#EEE; padding:1rem">
       <span>Lobby</span>
       <span style="flex:1; text-align:right">

@@ -1,6 +1,7 @@
 import {inject} from 'aurelia-framework';
 import {Conn} from './services/conn';
 import {UserService} from './services/user-service';
+import d3 from 'd3';
 
 /**
 * Simple chat lobby
@@ -30,6 +31,11 @@ export class Lobby {
         this.messageList.shift();
       }
       // TODO: Auto scroll to bottom
+    });
+
+    this.conn.getSocket().on('start-game', (msg)=> {
+      console.log('test', this.lobbyElement);
+      // d3.select(this.lobbyElement).style('display', 'none');
     });
   }
 

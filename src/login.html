@@ -1,5 +1,5 @@
 <template>
-  <div hidden.bind="userService.player.name">
+  <div show.bind="conn.state === 'login'">
     <input type="text" placeholder="Username..." value.bind="username"></input>
     <button click.trigger="login()">Login</button>
   </div>

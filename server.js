@@ -6,17 +6,8 @@ var static = require('node-static');
 var file = new(static.Server)('./');
 var players = [];
 var playerIdCounter = 0;
-
-// Init
-// 0) Player registration
-// 1) Acknolwedgement to begin
-// 2) Broadcast initial positions
-// 3) *** Listen ***
-
-// listen
-// 0) Update
-// 1) Broadcast (debounce this???)
 var updateHandle = null;
+
 
 app.get('/', function(req, res){
   res.sendFile(__dirname + '/index.html');
@@ -26,12 +17,12 @@ io.on('disconnection', function(socket) {
   console.log('disconnected...', socket.id);
 });
 
+
 io.on('connection', function(socket){
   console.log('connection detected...');
   io.emit('chat message', 'new person joined');
 
   socket.on('chat', function(msg){
-    console.log('chat', msg);
     io.emit('chat', msg);
   });
 
@@ -42,6 +33,7 @@ io.on('connection', function(socket){
     var numReady = players.filter(player => { return player.ready === 1;}).length;
     if (numReady >= players.length) {
       console.log('all players ready...starting game');
+      io.emit('start-game', {});
     }
   });
 
