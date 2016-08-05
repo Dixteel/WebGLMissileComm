@@ -1,6 +1,6 @@
 import {inject} from 'aurelia-framework';
-import {Conn} from './services/conn';
-import {UserService} from './services/user-service';
+import {Conn} from '../services/conn';
+import {UserService} from '../services/user-service';
 import d3 from 'd3';
 
 /**

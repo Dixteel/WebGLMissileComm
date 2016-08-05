@@ -1,8 +1,8 @@
 import {inject} from 'aurelia-framework';
-import {Conn} from './services/conn';
-import {UserService} from './services/user-service';
+import {Conn} from '../services/conn';
+import {UserService} from '../services/user-service';
 
-import {Stage} from './stage';
+import {Stage} from '../stage';
 
 @inject(Conn, UserService)
 export class Login {
