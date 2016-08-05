@@ -2,21 +2,23 @@ import {inject} from 'aurelia-framework';
 import io from 'socket.io-client';
 import d3 from 'd3';
 import THREE from 'three';
-import {Entity} from './entity';
-import {Stage} from './stage';
-import {AssetLoader} from './asset';
+import {Entity} from '../entity';
+import {Stage} from '../stage';
+import {AssetLoader} from '../asset';
 
-import {UserService} from './services/user-service';
+import {UserService} from '../services/user-service';
+import {Conn} from '../services/conn';
 
 
-@inject(UserService)
-export class Game2 {
+@inject(UserService, Conn)
+export class Game {
 
-  constructor(userService) {
+  constructor(userService, conn) {
     this.width = 500;
     this.height = 500;
     this.g_clock = new THREE.Clock();
     this.userService = userService;
+    this.conn = conn;
   }
 
   attached() {
